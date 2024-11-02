@@ -8,6 +8,10 @@ import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.util.Scanner;
 
+import br.com.alura.screenmatch.modelos.Titulo;
+import com.google.gson.*;
+
+
 public class PrincipalBusca {
 
     public static void main(String[] args) throws IOException, InterruptedException {
@@ -18,17 +22,21 @@ public class PrincipalBusca {
 
         var escolha = scanner.nextLine();
         
+        String endereco = "http://www.omdbapi.com/?t="+escolha+"&apikey=8133b1c1";
 
         HttpClient cliente = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-        .uri(URI.create("https://www.googleapis.com/auth/O Principe"))
-                // .uri(URI.create("http://www.omdbapi.com/?t="+escolha+"&apikey=8133b1c1"))
+        .uri(URI.create(endereco))
                 .build();
 
         HttpResponse<String> response = cliente
                 .send(request, BodyHandlers.ofString());
 
                 System.out.println(response.body());
+
+                Gson gson = new Gson();
+                Titulo meuTitulo = gson.fromJson(response.body(), Titulo.class);
+                System.out.println(meuTitulo.toString());
 
     }
 }
