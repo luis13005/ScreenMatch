@@ -69,6 +69,12 @@ public class Titulo implements Comparable<Titulo> {
         return somaDasAvaliacoes / totalDeAvaliacoes;
     }
 
+    public Titulo(TituloRecord record){
+        this.nome = record.title();
+        this.anoDeLancamento = Integer.valueOf(record.year());
+        this.duracaoEmMinutos = Integer.valueOf(record.runtime().substring(0,2));
+    }
+
     @Override
     public int compareTo(Titulo outroTitulo) {
         return this.getNome().compareTo(outroTitulo.getNome());

@@ -8,6 +8,7 @@ import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.util.Scanner;
 
+import br.com.alura.screenmatch.modelos.TituloRecord;
 import br.com.alura.screenmatch.modelos.Titulo;
 import com.google.gson.*;
 
@@ -33,9 +34,15 @@ public class PrincipalBusca {
                 .send(request, BodyHandlers.ofString());
 
                 System.out.println(response.body());
+                Gson gson = new GsonBuilder()
+                        .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
+                        .create();
 
-                Gson gson = new Gson();
-                Titulo meuTitulo = gson.fromJson(response.body(), Titulo.class);
+                String json = response.body();
+
+                TituloRecord record = gson.fromJson(json, TituloRecord.class);
+
+                Titulo meuTitulo = new Titulo(record);
                 System.out.println(meuTitulo.toString());
 
     }
