@@ -1,5 +1,7 @@
 package br.com.alura.screenmatch.principal;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URLEncoder;
@@ -48,9 +50,12 @@ public class PrincipalBusca {
 
             TituloRecord record = gson.fromJson(json, TituloRecord.class);
 
-
             Titulo meuTitulo = new Titulo(record);
             System.out.println(meuTitulo.toString());
+
+            FileWriter file = new FileWriter("arquivo.txt");
+            file.write(meuTitulo.toString());
+            file.close();
         }catch (NumberFormatException e ){
             System.out.println("Ocorreu um erro: "+e.getMessage());
         }catch( IllegalArgumentException e){
